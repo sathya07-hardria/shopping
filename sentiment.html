@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sentiment Analysis - Buddy Mall</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Navbar -->
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="tts.html">Text-to-Speech</a></li>
+      <li><a href="sentiment.html">Sentiment Analysis</a></li>
+    </ul>
+  </nav>
+
+  <!-- Sentiment Analysis Section -->
+  <section id="sentiment-section">
+    <h1>Sentiment Analysis 💙</h1>
+    <input type="text" id="sentiment-input" placeholder="Type text to analyze">
+    <button id="analyze-btn">Analyze</button>
+    <p id="sentiment-result"></p>
+  </section>
+
+  <!-- Chatbot Widget -->
+  <div id="chatbot-container">
+    <div id="chat-header">Buddy Mall Assistant 💙</div>
+    <div id="chat-messages"></div>
+    <input type="text" id="user-input" placeholder="Type your message...">
+    <button id="send-btn">Send</button>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    // ===== Sentiment Analysis Logic =====
+    const analyzeBtn = document.getElementById("analyze-btn");
+    const sentimentInput = document.getElementById("sentiment-input");
+    const sentimentResult = document.getElementById("sentiment-result");
+
+    analyzeBtn.addEventListener("click", () => {
+      const text = sentimentInput.value.trim();
+      if(text === "") {
+        sentimentResult.textContent = "Please type some text!";
+        return;
+      }
+
+      // Simple sentiment check (positive/negative/neutral)
+      const positiveWords = ["good","happy","great","excellent","love"];
+      const negativeWords = ["bad","sad","terrible","hate","worst"];
+
+      let score = 0;
+      const words = text.toLowerCase().split(" ");
+      words.forEach(word => {
+        if(positiveWords.includes(word)) score++;
+        if(negativeWords.includes(word)) score--;
+      });
+
+      if(score > 0) sentimentResult.textContent = "Sentiment: Positive 💙";
+      else if(score < 0) sentimentResult.textContent = "Sentiment: Negative 😞";
+      else sentimentResult.textContent = "Sentiment: Neutral 😐";
+    });
+  </script>
+</body>
+</html>
